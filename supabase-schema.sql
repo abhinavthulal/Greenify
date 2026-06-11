@@ -31,8 +31,8 @@ CREATE POLICY "Allow public read" ON daily_upload_counts
 CREATE POLICY "Allow service role update" ON site_stats
   FOR UPDATE USING (auth.role() = 'service_role');
 
-CREATE POLICY "Allow service role upsert" ON daily_upload_counts
-  FOR INSERT USING (auth.role() = 'service_role');
+CREATE POLICY "Allow service role insert" ON daily_upload_counts
+  FOR INSERT WITH CHECK (auth.role() = 'service_role');
 
 -- Initialize site_stats with one row
 INSERT INTO site_stats (id, total_photos, total_visitors) 
